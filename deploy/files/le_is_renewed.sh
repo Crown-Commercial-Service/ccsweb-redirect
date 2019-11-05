@@ -50,18 +50,17 @@ fi
 echo "Checking whether the certificate recently renewed..."
 IS_RENEWED=0
 
-# If we don't have an existing cert md5 file we have to assume it's renewed
 if [ ! -e "$LOCAL_CERT_MD5_PATH" ]; then
     echo "No local cert md5 file found, assuming the certificate has renewed."
     IS_RENEWED=1
-fi
+else
+    LOCAL_CERT_MD5=$(sudo cat "$LOCAL_CERT_MD5_PATH")
+    SHARED_CERT_MD5=$(sudo cat "$SHARED_CERT_MD5_PATH")
 
-LOCAL_CERT_MD5=$(sudo cat "$LOCAL_CERT_MD5_PATH")
-SHARED_CERT_MD5=$(sudo cat "$SHARED_CERT_MD5_PATH")
-
-if [ "$LOCAL_CERT_MD5" != "$SHARED_CERT_MD5" ]; then
-    echo "Local cert md5 file differs to the shared cert md5 file, certificate has renewed."
-    IS_RENEWED=1
+    if [ "$LOCAL_CERT_MD5" != "$SHARED_CERT_MD5" ]; then
+        echo "Local cert md5 file differs to the shared cert md5 file, certificate has renewed."
+        IS_RENEWED=1
+    fi
 fi
 
 if [ $IS_RENEWED -eq 1 ]; then
