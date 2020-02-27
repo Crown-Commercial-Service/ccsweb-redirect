@@ -38,8 +38,8 @@ mkdir -p \
 
 echo "> Initialising web-root files..."
 echo "" > "$SHARED_HTTPD_DOCROOT_PATH/index.html"
-mkdir -p "$SHARED_HTTPD_DOCROOT_PATH/healthcheck"
-echo "HEALTHCHECK" > "$SHARED_HTTPD_DOCROOT_PATH/healthcheck/index.html"
+mkdir -p "$SHARED_HTTPD_DOCROOT_PATH/healthcheck_r53"
+echo "HEALTHCHECK" > "$SHARED_HTTPD_DOCROOT_PATH/healthcheck_r53/index.html"
 chown -R apache:apache "$SHARED_HTTPD_DOCROOT_PATH"
 
 echo "Initialisation complete."
